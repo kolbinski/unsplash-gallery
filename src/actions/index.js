@@ -11,18 +11,20 @@ const unsplash = new Unsplash({
 
 export const SET_KEYWORD = 'SET_KEYWORD';
 export const SET_USERNAME = 'SET_USERNAME';
-export const GALLERY_FETCH_SUCCESS = 'GALLERY_FETCH_SUCCESS';
-// export const GALLERY_FETCH_FAILURE = 'GALLERY_FETCH_FAILURE';
 export const USERS_FETCH_REQUEST = 'USERS_FETCH_REQUEST';
 export const USERS_FETCH_SUCCESS = 'USERS_FETCH_SUCCESS';
 export const USERS_FETCH_FAILURE = 'USERS_FETCH_FAILURE';
+export const GALLERY_FETCH_REQUEST = 'GALLERY_FETCH_REQUEST';
+export const GALLERY_FETCH_SUCCESS = 'GALLERY_FETCH_SUCCESS';
+export const GALLERY_FETCH_FAILURE = 'GALLERY_FETCH_FAILURE';
 export const setKeyword = createAction(SET_KEYWORD);
 export const setUsername = createAction(SET_USERNAME);
-export const fetchGallerySuccess = createAction(GALLERY_FETCH_SUCCESS);
-// export const fetchGalleryFailure = createAction(GALLERY_FETCH_FAILURE);
 export const fetchUsersRequest = createAction(USERS_FETCH_REQUEST);
 export const fetchUsersSuccess = createAction(USERS_FETCH_SUCCESS);
 export const fetchUsersFailure = createAction(USERS_FETCH_FAILURE);
+export const fetchGalleryRequest = createAction(GALLERY_FETCH_REQUEST);
+export const fetchGallerySuccess = createAction(GALLERY_FETCH_SUCCESS);
+export const fetchGalleryFailure = createAction(GALLERY_FETCH_FAILURE);
 
 export const changeKeyword = keyword => dispatch => dispatch(setKeyword(keyword));
 
@@ -52,15 +54,24 @@ export const loadUsers = keyword => async (dispatch, getState) => {
 
 export const loadUserPhotos = username => async (dispatch, getState) => {
   dispatch(setUsername(username));
+  dispatch(fetchGalleryRequest());
   const state = getState();
   if (state.gallery[username]) return;
   const page = (state.gallery[username] || {page: 0}).page + 1;
-  const res = await unsplash.users.photos(username, page, 100);
-  const data = await toJson(res);
-  dispatch(fetchGallerySuccess({
-    username,
-    data,
-    page,
-    hasMore: false,
-  }));
+  try {
+    const res = await unsplash.users.photos(username, page, 100);
+    const data = await toJson(res);
+    if (data.errors) {
+      dispatch(fetchGalleryFailure());
+      return;
+    }
+    dispatch(fetchGallerySuccess({
+      username,
+      data,
+      page,
+      hasMore: false,
+    }));
+  } catch (e) {
+    dispatch(fetchGalleryFailure());
+  }
 };

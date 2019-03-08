@@ -1,6 +1,8 @@
 import merge from 'lodash/merge';
 import {
+  GALLERY_FETCH_REQUEST,
   GALLERY_FETCH_SUCCESS,
+  GALLERY_FETCH_FAILURE,
 } from '../actions';
 
 export default (state = {}, action) => {
@@ -16,6 +18,17 @@ export default (state = {}, action) => {
           page,
           hasMore,
         }
+      });
+    }
+    case GALLERY_FETCH_REQUEST: {
+      return merge({}, state, {
+        loading: true,
+      });
+    }
+    case GALLERY_FETCH_FAILURE: {
+      return merge({}, state, {
+        loading: false,
+        error: true,
       });
     }
     default: return state

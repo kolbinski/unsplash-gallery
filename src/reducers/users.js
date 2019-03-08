@@ -7,11 +7,6 @@ import {
 
 export default (state = {}, action) => {
   switch (action.type) {
-    case USERS_FETCH_REQUEST: {
-      return merge({}, state, {
-        loading: true,
-      });
-    }
     case USERS_FETCH_SUCCESS: {
       const {keyword, data = [], page, hasMore} = action.payload;
       return merge({}, state, {
@@ -25,6 +20,11 @@ export default (state = {}, action) => {
           page,
           hasMore,
         }
+      });
+    }
+    case USERS_FETCH_REQUEST: {
+      return merge({}, state, {
+        loading: true,
       });
     }
     case USERS_FETCH_FAILURE: {

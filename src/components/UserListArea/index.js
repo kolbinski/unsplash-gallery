@@ -43,7 +43,7 @@ export default class UserListArea extends PureComponent {
           {loading && <Loader />}
           {error && (
             <Message>
-              Error while getting users data.
+              {'Error while getting users data.'}
             </Message>
           )}
         </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import './style.css';
 
 export default ({children}) =>(
-  <div className="Loader">
+  <div className="Message">
     {children}
     <br />
     Please try again later.

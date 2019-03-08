@@ -26,6 +26,8 @@ class UnsplashGallery extends PureComponent {
       keyword,
       loadingUsers,
       usersError,
+      loadingGallery,
+      galleryError,
     } = this.props;
     return (
       <div className="UnsplashGallery">
@@ -41,7 +43,11 @@ class UnsplashGallery extends PureComponent {
           loading={loadingUsers}
           error={usersError}
         />
-        <PhotoGrid gallery={gallery} />
+        <PhotoGrid
+          gallery={gallery}
+          loading={loadingGallery}
+          error={galleryError}
+        />
         <Footer />
       </div>
     );
@@ -65,6 +71,8 @@ const selector = createSelector(
     gallery: gallery[username] || {data: [], page: 0, hasMore: true},
     loadingUsers: users.loading,
     usersError: users.error,
+    loadingGallery: gallery.loading,
+    galleryError: gallery.error,
   }),
 );
 
