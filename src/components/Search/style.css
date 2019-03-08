@@ -1,0 +1,16 @@
+.Search {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 400px;
+  padding: 16px;
+  box-sizing: border-box;
+  background-color: #FFF;
+  border-bottom: 2px solid #000;
+}
+
+.Search__input {
+  width: 100%;
+  padding: 16px;
+  box-sizing: border-box;
+}

@@ -1,0 +1,14 @@
+.UserListArea {
+  position: fixed;
+  top: 0;
+  bottom: 40px;
+  left: 0;
+  width: 400px;
+  background-color: #cdebfa;
+  color: #000;
+  overflow-y: auto;
+  padding-top: 72px;
+}
+.UserListArea__content {
+  padding: 16px;
+}
