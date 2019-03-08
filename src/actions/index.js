@@ -30,9 +30,9 @@ export const changeKeyword = keyword => dispatch => dispatch(setKeyword(keyword)
 
 export const loadUsers = keyword => async (dispatch, getState) => {
   dispatch(setKeyword(keyword));
-  dispatch(fetchUsersRequest());
   const state = getState();
   if (state.users[keyword]) return;
+  dispatch(fetchUsersRequest());
   const page = (state.users[keyword] || {page: 0}).page + 1;
   try {
     const res = await unsplash.search.users(keyword, page, 100);
@@ -54,9 +54,9 @@ export const loadUsers = keyword => async (dispatch, getState) => {
 
 export const loadUserPhotos = username => async (dispatch, getState) => {
   dispatch(setUsername(username));
-  dispatch(fetchGalleryRequest());
   const state = getState();
   if (state.gallery[username]) return;
+  dispatch(fetchGalleryRequest());
   const page = (state.gallery[username] || {page: 0}).page + 1;
   try {
     const res = await unsplash.users.photos(username, page, 100);
