@@ -12,6 +12,7 @@ export default class PhotoGrid extends PureComponent {
       gallery: {data},
       loading,
       error,
+      activeUsername,
     } = this.props;
     const photos = data.map(item => ({
       src: item.urls.regular,
@@ -25,6 +26,11 @@ export default class PhotoGrid extends PureComponent {
         {error && (
           <Message>
             {'Error while getting users data.'}
+          </Message>
+        )}
+        {!loading && activeUsername !== '' && photos.length === 0 && (
+          <Message>
+            {'No photos found.'}
           </Message>
         )}
       </div>

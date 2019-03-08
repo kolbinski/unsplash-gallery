@@ -10,6 +10,8 @@ export default (state = {}, action) => {
     case GALLERY_FETCH_SUCCESS: {
       const {username, data = [], page, hasMore} = action.payload;
       return merge({}, state, {
+        loading: false,
+        error: false,
         [username]: {
           data: [
             ...(state[username] || {data: []}).data,

@@ -47,6 +47,7 @@ class UnsplashGallery extends PureComponent {
           gallery={gallery}
           loading={loadingGallery}
           error={galleryError}
+          activeUsername={username}
         />
         <Footer />
       </div>
