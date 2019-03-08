@@ -2,6 +2,8 @@ import React, {PureComponent} from 'react';
 import {
   User,
   Search,
+  Loader,
+  Message,
 } from '../';
 import {
   // InfinityScroll,
@@ -20,6 +22,8 @@ export default class UserListArea extends PureComponent {
       // onLoadUsernamesPage,
       keyword,
       // hasMore,
+      loading,
+      error,
     } = this.props;
     return (
       <div className="UserListArea">
@@ -36,6 +40,12 @@ export default class UserListArea extends PureComponent {
               active={user.username === activeUsername}
             />
           ))}
+          {loading && <Loader />}
+          {error && (
+            <Message>
+              Error while getting users data.
+            </Message>
+          )}
         </div>
       </div>
     );
