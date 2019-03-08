@@ -44,6 +44,12 @@ export default class UserListArea extends PureComponent {
           {error && (
             <Message>
               {'Error while getting users data.'}
+              {'Please try again later.'}
+            </Message>
+          )}
+          {!loading && keyword !== '' && data.length === 0 && (
+            <Message>
+              {'No users found.'}
             </Message>
           )}
         </div>
